@@ -1,5 +1,11 @@
 import { Component } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import {Store, select} from '@ngrx/store';
+import * as fromRoot from './store';
+import * as fromDictionaries from './store/dictionaries';
+import * as fromUser from './store/user';
+import { Observable } from 'rxjs';
+
+
 
 @Component({
   selector: 'app-root',
@@ -8,15 +14,19 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class AppComponent {
   title = 'Ecommerce';
-  constructor(private fs: AngularFirestore){
+ IsAuthorized$!: Observable<boolean>;
 
+  constructor(private store:Store<fromRoot.State>){
+  }
+// se dispara para la carga
+  ngOnInit(){
+    this.IsAuthorized$=this.store.pipe(select(fromUser.getIsAuthorized));
+
+    this.store.dispatch(new fromUser.Init());
+    this.store.dispatch(new fromDictionaries.Read());
   }
 
-
-  ngOnInit(){
-    this.fs.collection('test').snapshotChanges().subscribe(personas =>{
-      console.log(personas.map(x => x.payload.doc.data()));
-    })
-
+  onSignOut():void{
+    this.store.dispatch(new fromUser.SignOutEmail())
   }
 }

@@ -1,0 +1,23 @@
+<div class="app-page">
+  <div class="app-page__haeder">
+    <h1>Perfil de Usuario</h1>
+  </div>
+
+  <div class="app-page__content">
+    <app-stepper *ngIf="dictionariesIsReady$ | async">
+
+      <ng-container [ngSwitch]="stepper?.activeStep?.key">
+        <app-personal
+        [dictionaries]="dictionaries$ | async"
+        (changed)="onChangedPersonal($event)"
+        *ngSwitchCase="'personal'">
+      </app-personal>
+
+        <app-professional *ngSwitchCase="'professional'"
+        [dictionaries]="dictionaries$ | async"
+        (changed)="onChangedProfesional($event)"
+        ></app-professional>
+      </ng-container>
+    </app-stepper>
+  </div>
+</div>

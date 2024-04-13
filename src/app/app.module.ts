@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { NotificacionModule } from './services';
 
@@ -17,6 +17,14 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatNativeDateModule, MatDateFormats,MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+
+
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+const  StoreDevtools = !environment.production? StoreDevtoolsModule.instrument({maxAge:50}): [];
+import {reducers, effects} from './store';
+
 
 const APP_DATE_FORMATS: MatDateFormats ={
   parse:{
@@ -45,7 +53,18 @@ const APP_DATE_FORMATS: MatDateFormats ={
     AngularFireAuthModule,
     BrowserAnimationsModule,
     MatNativeDateModule,
-    NotificacionModule.forRoot()
+
+    StoreModule.forRoot(reducers,{
+      runtimeChecks:{
+        strictActionImmutability:true,
+        strictStateImmutability: true
+      }
+    }),
+    EffectsModule.forRoot(effects),
+    StoreDevtools,
+
+    NotificacionModule.forRoot(),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })
   ],
   providers: [
     provideClientHydration(),

@@ -44,7 +44,7 @@ export class RadiosComponent implements ControlValueAccessor{
   }
 
   OnChanged(value: Value):void{
-    this.value =this.value;
+    this.value = value;
     this.propagateChange(value);
     this.changed.emit(value);
 

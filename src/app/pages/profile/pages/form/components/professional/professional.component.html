@@ -1,0 +1,23 @@
+<form [formGroup]="form" novalidate autocomplete="off">
+
+  <app-form-field label="Selecciona tu role" [required]="true" [control]="form.controls['roleId']">
+    <app-radios formControlName="roleId" [items]="dictionaries? dictionaries.roles.ControlItems : []"></app-radios>
+  </app-form-field>
+
+
+  <app-form-field label="Hablanos sobre ti" [control]="form.controls['about']">
+    <app-input formControlName="about"></app-input>
+  </app-form-field>
+
+  <ng-container [ngSwitch]="form.controls['roleId'].value">
+    
+    <app-recrutier *ngSwitchCase="'recruiter'" [parent]="form" name="role" [value]="value? value.role :value" [dictionaries]="dictionaries">
+    </app-recrutier>
+
+    <app-employee *ngSwitchCase="'employee'" [parent]="form" name="role" [value]="value? value.role :value" [dictionaries]="dictionaries">
+    </app-employee >
+
+  </ng-container>
+
+
+</form>

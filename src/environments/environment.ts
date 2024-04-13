@@ -10,5 +10,9 @@ export const environment = {
       messagingSenderId: "51134276160",
       appId: "1:51134276160:web:eae4d6691f97ba6b2bb5a5"
     }
+  },
+  actionCodeSetting:{
+    url:'http://localhost:4200/profile/new',
+    handleCodeInApp: true
   }
 };

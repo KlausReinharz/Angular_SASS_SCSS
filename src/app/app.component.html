@@ -1,2 +1,2 @@
-<app-header></app-header>
+<app-header [isAuthotizrd]="IsAuthorized$ | async" (signOut)="onSignOut()"></app-header>
 <router-outlet></router-outlet>

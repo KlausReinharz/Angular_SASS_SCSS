@@ -1,0 +1,20 @@
+.source-image{
+  margin: 0 auto;
+}
+.cropper{
+  &__content{
+    height: 260px;
+  }
+
+  &__actions{
+    display: flex;
+    justify-content: center;
+  }
+}
+.button{
+  color:#0277bd ;
+  &:hover{
+    color:#004c8c;
+    cursor: pointer;
+  }
+}

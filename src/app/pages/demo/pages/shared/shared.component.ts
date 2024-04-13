@@ -5,10 +5,12 @@ import { ControlItem } from '../../../../models/frontend';
 
 import { NotificationService } from '../../../../services';
 
+
 @Component({
   selector: 'app-shared',
   templateUrl: './shared.component.html',
-  styleUrls:['./shared.component.scss']
+  styleUrls:['./shared.component.scss'],
+
 })
 export class SharedComponent implements OnInit {
   form!: FormGroup;
@@ -127,6 +129,10 @@ export class SharedComponent implements OnInit {
 
   onError():void{
     this.notification.error("Se encontraron errores en el proceso");
+  }
+
+  onFilesChanged(urls: string | string[]):void{
+    console.log('urls', urls);
   }
 
 }
