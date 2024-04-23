@@ -10,7 +10,7 @@
   </app-form-field>
 
   <ng-container [ngSwitch]="form.controls['roleId'].value">
-    
+
     <app-recrutier *ngSwitchCase="'recruiter'" [parent]="form" name="role" [value]="value? value.role :value" [dictionaries]="dictionaries">
     </app-recrutier>
 
@@ -21,3 +21,7 @@
 
 
 </form>
+
+<code>
+  {{form.value | json}}
+</code>

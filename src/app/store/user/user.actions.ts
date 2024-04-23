@@ -1,5 +1,5 @@
 import {Action} from '@ngrx/store';
-import {User, EmailPasswordCredentials} from './user.models';
+import {User, EmailPasswordCredentials, UserCreateRequest} from './user.models';
 
 export enum Types {
   INIT = '[User] Init: Start',
@@ -19,6 +19,15 @@ export enum Types {
   SIGN_OUT_EMAIL = '[User] Sign Out con email: Start',
   SIGN_OUT_EMAIL_SUCCESS = '[User] Sign Out con email: Success',
   SIGN_OUT_EMAIL_ERROR = '[User] Sign Out con email: Error',
+
+  CREATE = '[User] Create: Start',
+  CREATE_SUCCESS = '[User] Create: Success',
+  CREATE_ERROR = '[User] Create: Error',
+
+  UPDATE = '[User] Upadate: Start',
+  UPDATE_SUCCESS = '[User] Upadate: Success',
+  UPDATE_ERROR = '[User] Upadate: Error',
+
 }
 
 //Init
@@ -100,6 +109,38 @@ export class SignOutError implements Action{
   constructor(public error:string ){}
 }
 
+//user create
+export class Create implements Action{
+  readonly type = Types.CREATE;
+  constructor(public user: UserCreateRequest){}
+}
+
+export class CreateSuccess implements Action{
+  readonly type = Types.CREATE_SUCCESS;
+  constructor(public user: User){}
+}
+export class CreateError implements Action{
+  readonly type = Types.CREATE_ERROR;
+  constructor(public error: string){}
+}
+
+//user update
+
+export class Update implements Action{
+  readonly type = Types.UPDATE;
+  constructor(public user: User){}
+}
+
+export class UpdateSuccess implements Action{
+  readonly type = Types.UPDATE_SUCCESS;
+  constructor(public user: User){}
+}
+
+export class UpdateError implements Action{
+  readonly type = Types.UPDATE_ERROR
+  constructor(public error: string){}
+}
+
 export type All =
       Init
       | InitAuthorized
@@ -113,6 +154,13 @@ export type All =
       | SignUpEmailError
       | SignOutEmail
       | SignOutSuccess
-      | SignOutError;
+      | SignOutError
+      | Create
+      | CreateSuccess
+      | CreateError
+      | Update
+      | UpdateSuccess
+      | UpdateError
+      ;
 
 

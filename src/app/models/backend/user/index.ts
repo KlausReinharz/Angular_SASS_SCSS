@@ -1,17 +1,17 @@
 import firebase from 'firebase/compat/app';
 
 import { Employee, Recruiter } from "./roles";
-export * from './roles'
+export * from './roles';
 
 export interface User{
   uid:string;
-  name: string;
-  photoURL:string;
+  name: string | null;
+  photoURL:string | null;
   email:string;
-  country: string;
-  about?:string;
-  roleId: string;
-  role:Employee | Recruiter;
+  country: string | null;
+  about?:string | null;
+  roleId?: string | null;
+  role?:Employee | Recruiter | null;
   created:firebase.firestore.FieldValue;
   updated?:firebase.firestore.FieldValue;
 }

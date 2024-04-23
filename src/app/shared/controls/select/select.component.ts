@@ -17,7 +17,7 @@ export {ControlItem, Value} from '../../../models/frontend';
   ]
 })
 export class SelectComponent implements ControlValueAccessor {
-  @Input() Items: ControlItem[];
+  @Input() Items: ControlItem[] ;
 
   @Input() placeholder!: string;
   @Output() changed = new EventEmitter<Value>();

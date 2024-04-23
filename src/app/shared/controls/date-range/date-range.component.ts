@@ -43,6 +43,7 @@ export class DateRangeComponent implements OnInit, ControlValueAccessor {
   get min(): Date{
     const from = this.form.controls['from'].value;
     return from ? new Date(from): new Date();
+    
   }
   get max(): Date{
     const to = this.form.controls['to'].value;

@@ -1,10 +1,10 @@
 
 export interface Employee{
-  specialization: Specialization;
-  skills: Skill[],
-  quealification: Qualification;
+  specialization: Specialization| null;
+  skills: Skill[] | any,
+  qualification: Qualification | null;
   expectedSalary:number;
-  experiences:Experience[];
+  experiences:Experience[]|any;
 }
 
 interface Specialization{
@@ -25,11 +25,11 @@ interface Qualification{
 
 interface Experience{
   companyName: string;
-  period:Period;
+  period: Period;
 
 }
 
 interface Period{
-  from:number;
-  to:number;
+  from: number;
+  to: number;
 }

@@ -24,8 +24,8 @@ export class DateComponent implements ControlValueAccessor{
   @Output () Changed = new EventEmitter<Value>();
   @Output () closed = new EventEmitter<void>();
 
-  get inputValue():Date{
-    return this.value? new Date(this.value): new Date();
+  get inputValue():Date|null {
+    return this.value? new Date(this.value): null;
   }
 
 

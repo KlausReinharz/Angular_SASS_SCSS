@@ -1,10 +1,11 @@
 .mat-snackbar{
   &_error{
-    background: $error;
-    color: $on-error;
+
+    background: #B00020;
+    color: #ffffff;
   }
   &_success{
-    background: $success;
-    color: $on-success;
+    background: #99aa00;
+    color: #ffffff;
   }
 }

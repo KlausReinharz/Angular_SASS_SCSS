@@ -7,9 +7,9 @@ import { regexErrors } from '../../../../../../shared/utils/regex';
 import { markFormGroupTouched } from '../../../../../../shared';
 
 export interface PersonalForm{
-  name: string;
-  photoUrl: string;
-  country: string
+  name: string | null;
+  photoUrl: string | null;
+  country: string | null;
 }
 
 @Component({
@@ -24,7 +24,7 @@ export interface PersonalForm{
 
 export class PersonalComponent implements OnInit, OnDestroy {
 
-  @Input() value!: PersonalForm;
+  @Input() value!: PersonalForm |any;
   @Input() dictionaries!: Dictionaries | null;
 
   @Output() changed = new EventEmitter<PersonalForm>();

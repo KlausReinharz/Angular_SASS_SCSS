@@ -2,7 +2,6 @@
 
   <form [formGroup]="form" novalidate autocomplete="off">
     <div class="date-range__items">
-      
       <app-date formControlName="from"
       (closed)="onClosed()"
       [placeholder]="placeholder? placeholder.from : 'Desde'"
@@ -22,5 +21,14 @@
       </app-date>
     </div>
   </form>
-
 </div>
+
+
+
+
+
+<code>
+  {{form.value | json}}
+</code>
+
+

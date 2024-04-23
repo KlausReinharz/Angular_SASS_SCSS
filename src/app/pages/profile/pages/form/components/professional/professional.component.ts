@@ -9,9 +9,9 @@ import { RecrutierForm } from './roles/recrutier/recrutier.component';
 import { EmployeeForm } from './roles/employee/employee.component';
 
 export interface ProfesionalForm{
-  about: string;
-  roleId: string;
-  role: RecrutierForm | EmployeeForm;
+  about?: string | null;
+  roleId?: string | null;
+  role?: RecrutierForm | EmployeeForm |null|any;
 }
 
 @Component({
@@ -22,7 +22,7 @@ export interface ProfesionalForm{
 })
 export class ProfessionalComponent implements OnInit, OnDestroy {
 
-  @Input() value!: ProfesionalForm;
+  @Input() value!: ProfesionalForm | any;
   @Input() dictionaries!: Dictionaries | null;
 
   @Output() changed = new EventEmitter<ProfesionalForm>();
