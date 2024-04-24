@@ -1,17 +1,19 @@
 @import '../../../../../../../../../../styles/color.scss';
 @import '../../../../../../../../../../styles/mixins.scss';
 
-.experiences{
-  &__footer{
-    display: flex;
-    justify-content: flex-end;
+.experiences {
+  &__footer {
+      display: flex;
+      justify-content: flex-end;
   }
 }
-.experience{
+
+.experience {
   @include card;
-  margin-bottom: 16px;
+  margin-bottom:16px;
+
   &__footer{
-    display: flex;
-    justify-content: flex-end;
+      display: flex;
+      justify-content:flex-end ;
   }
 }

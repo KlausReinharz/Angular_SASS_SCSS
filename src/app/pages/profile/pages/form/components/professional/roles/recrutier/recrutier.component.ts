@@ -44,7 +44,10 @@ export class RecrutierComponent implements OnInit, OnDestroy{
         updateOn:'blur', validators:[
           Validators.required
         ]
-      }]
+      }],
+      experiences:[
+        []
+      ]
     });
 
     if(this.value){

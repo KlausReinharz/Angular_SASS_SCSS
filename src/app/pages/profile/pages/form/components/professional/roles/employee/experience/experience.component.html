@@ -7,9 +7,10 @@
           <app-input formControlName="companyName"></app-input>
         </app-form-field>
 
-        <app-form-field label="Periodo laboral" [required]="true" [control]="getControl(experience, 'period')">
+
+        <app-form-field label="Periodo Laboral" [required]="true" [control]="getControl(experience, 'period')">
           <app-date-range formControlName="period"></app-date-range>
-        </app-form-field>
+      </app-form-field>
 
       </div>
 
@@ -27,6 +28,3 @@
 
 </form>
 
-<code>
-  {{form.value | json}}
-</code>

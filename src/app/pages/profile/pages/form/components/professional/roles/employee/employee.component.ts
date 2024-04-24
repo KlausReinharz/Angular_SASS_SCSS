@@ -124,17 +124,5 @@ export class EmployeeComponent implements OnInit, OnDestroy{
 
 
   }
-
-
-  onComplete(): void {
-    const profileFormValue = this.form.value; // Obtén el valor del formulario
-
-    // Pasa el formulario completo al servicio MapperService para ser procesado
-    this.mapperService.processEmployeeForm(profileFormValue);
-  }
-
-
-
-
 }
 

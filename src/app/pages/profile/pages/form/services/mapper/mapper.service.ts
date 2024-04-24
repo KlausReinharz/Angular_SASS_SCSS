@@ -63,7 +63,8 @@ export class MapperService {
       roleId: form.professional?.roleId,
       country: form.personal?.country || null,
       about: form.professional?.about,
-      role: this.getRole(form, dictionaries)
+      role: this.getRole(form, dictionaries),
+
     }
   }
 
@@ -75,13 +76,7 @@ export class MapperService {
         specialization : dicitionaries.specializations.items.find(x => x.id === formRole.specialization)|| null,
         qualification : dicitionaries.specializations.items.find(x => x.id === formRole.qualificacion)||null,
         skills:formRole.skills.map(id=> dicitionaries.skills.items.find(x=>x.id === id)),
-        experiences:formRole.experiences.map((exp: ExperienceForm) => ({
-          companyName: exp.companyName,
-          period: {  // Asegurarse de que 'period' tenga valores 'from' y 'to'
-            from: exp.period?.from || 0, // Usar '?.' para evitar errores si 'period' es nulo
-            to: exp.period?.to || 0
-          }
-        }))
+        experiences: form.professional.role.experiencesEmployee
       }
       return role;
     }
@@ -91,6 +86,7 @@ export class MapperService {
       const role: Recruiter = {
         companyName : formRole.companyName,
         employeesCount : formRole.employeesCount
+        
       }
       return role;
 
@@ -113,14 +109,4 @@ export class MapperService {
   }
 
 
-  processEmployeeForm(employeeForm: EmployeeForm): void {
-    employeeForm.experiences.forEach((experience) => {
-      const period: Period = experience.period;
-      const from = period.from; // Valor 'from' del periodo de experiencia laboral
-      const to = period.to; // Valor 'to' del periodo de experiencia laboral
-
-      console.log('From:', from);
-      console.log('To:', to);
-    });
-  }
 }

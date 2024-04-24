@@ -3,8 +3,6 @@
   <div class="personal__photo">
     <div class="photo">
         <app-user-photo class="photo__img" [photoURL]="form.controls['photoURL'].value"></app-user-photo>
-
-
         <div class="app-a" appFilesUpload [crop]="true" (changed)="onPhotoChanged($event)">
           Subir imagen de perfil
         </div>
@@ -23,6 +21,17 @@
 
 
 </form>
+
+
+
+
+
+
+
+
+
+
+
 
 <code>
   {{form.value | json}}

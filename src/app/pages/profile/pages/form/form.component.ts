@@ -70,9 +70,8 @@ export class FormComponent implements OnInit, OnDestroy{
     this.dictionariesIsReady$=this.store.pipe(select(fromDictionaries.getIsReady))as Observable<boolean>;
 
     this.stepper.init([
-      {key: 'professional', label: 'Profesional'},
-      {key: 'personal', label: 'Personal'}
-
+      {key: 'personal', label: 'Personal'},
+      {key: 'professional', label: 'Profesional'}
     ])
 
     this.stepper.complete$.pipe(
@@ -85,7 +84,6 @@ export class FormComponent implements OnInit, OnDestroy{
     });
     this.stepper.cancel$.pipe(takeUntil(this.destroy)).subscribe(()=>{
       console.log('stepper cancelado')
-
     });
 
   }
@@ -103,7 +101,7 @@ export class FormComponent implements OnInit, OnDestroy{
 
   onChangedProfesional(data:ProfesionalForm){
     this.store.dispatch(new fromForm.Update({professional:data}))
-    console.log('data de profesional', data)
+    //console.log('data de profesional', data)
   }
 
   private onComplete(profile: ProfileForm, user: fromUser.User, dictionaries:fromDictionaries.Dictionaries): void{

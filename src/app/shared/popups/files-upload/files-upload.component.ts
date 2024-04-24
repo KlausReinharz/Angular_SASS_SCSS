@@ -48,7 +48,7 @@ export class FilesUploadComponent implements OnInit {
     }
     // aqui en vez de image le puse imagen pero no lee el recortar
 
-    if(this.data.crop && files.length === 1 && files.item(0)?.type.split('/')[0]==='imagen'){
+    if(this.data.crop && files.length === 1 && files.item(0)?.type.split('/')[0]==='image'){
       this.imageFile = files.item(0) as File;
       console.log(this.imageFile);
       return;

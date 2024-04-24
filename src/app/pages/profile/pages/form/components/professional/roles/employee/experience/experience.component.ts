@@ -43,7 +43,6 @@ export class ExperienceComponent implements OnInit, OnDestroy{
   }
 
 
-
   private init():void{
     this.form = this.fb.array(this.getFormGropuArray(this.values));
     this.parent.addControl(this.name,this.form);
@@ -59,24 +58,24 @@ export class ExperienceComponent implements OnInit, OnDestroy{
 
   private getFormGroup(value?: ExperienceForm): FormGroup{
     const group = this.fb.group({
-
       companyName:[null,{
         updateOn:'blur',validators:[
           Validators.required
         ]
       }],
       period:[null,{
-        updateOn:'change',
-        validators:[
+        updateOn:'change',validators:[
           Validators.required
         ]
-      }]
+      }
+      ]
     });
 
     if(value){
       group.patchValue(value);
     }
     return group;
+
   }
 
 
@@ -92,16 +91,5 @@ export class ExperienceComponent implements OnInit, OnDestroy{
 
   getControl(control:any,name:string){
     return control.get('controls')?.get(name) as FormControl;
-  }
-
-  processEmployeeForm(employeeForm: EmployeeForm): void {
-    employeeForm.experiences.forEach((experience:any) => {
-      const period: Period = experience.period;
-      const from = period.from; // Valor 'from' del periodo de experiencia laboral
-      const to = period.to; // Valor 'to' del periodo de experiencia laboral
-
-      console.log('From:', from);
-      console.log('To:', to);
-    });
   }
 }
