@@ -12,14 +12,20 @@ import { Observable } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
+
 export class AppComponent {
   title = 'Ecommerce';
- IsAuthorized$!: Observable<boolean>;
+  IsAuthorized$!: Observable<boolean>;
 
-  constructor(private store:Store<fromRoot.State>){
-  }
-// se dispara para la carga
+  user$!: Observable<fromUser.User>
+
+  constructor(private store:Store<fromRoot.State>){}
+
+  // se dispara para la carga
+
   ngOnInit(){
+    this.user$ = this.store.pipe(select(fromUser.getUser)) as Observable<fromUser.User>;
+
     this.IsAuthorized$=this.store.pipe(select(fromUser.getIsAuthorized));
 
     this.store.dispatch(new fromUser.Init());

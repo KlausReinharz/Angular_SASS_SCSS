@@ -1,0 +1,28 @@
+<div class="employee">
+  <app-user-photo [photoURL]="employees.photoURL ? employees.photoURL : ''"></app-user-photo>
+
+  <div class="employee__info">
+      <div class="info">
+
+          <div class="info__header">
+              <a class="app-a" [routerLink]="['/profile', employees.uid]">{{employees.name}}</a>
+          </div>
+
+          <p>
+              Salario : {{employees.role.expectedSalary | currency}}
+          </p>
+
+          <p>
+              Especialidad : {{employees.role.specialization ? employees.role.specialization.name : ''}}
+          </p>
+
+          <div class="info__skills">
+                  Habilidades Tecnicas:
+                  <span class="skill" *ngFor="let skill of employees.role.skills" >  {{skill.name}} </span>
+          </div>
+
+      </div>
+
+  </div>
+
+</div>

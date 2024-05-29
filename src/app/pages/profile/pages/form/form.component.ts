@@ -1,6 +1,6 @@
 import { Component, OnInit,OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { StepperService } from './components/stepper/services';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { Observable, Subject, zip} from 'rxjs';
 
 import * as fromUser from '../../../../store/user';
@@ -13,6 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as fromForm from '../../store/form'
 
 import { MapperService } from './services';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 export interface ProfileForm{
   personal: PersonalForm | null;
@@ -30,10 +31,13 @@ export class FormComponent implements OnInit, OnDestroy{
 
   dictionaries$!: Observable<fromDictionaries.Dictionaries> | Observable<any>;
   dictionariesIsReady$!: Observable<boolean>;
-  private destroy = new Subject<any>();
 
   personal$ !: Observable<PersonalForm> | Observable<any>;
   professional$!: Observable<ProfesionalForm> | Observable<any>;
+
+  loading$!: Observable<boolean>;
+
+  private destroy = new Subject<any>();
 
   private profile$!: Observable<ProfileForm> | Observable<any>;
 
@@ -47,11 +51,20 @@ export class FormComponent implements OnInit, OnDestroy{
     private route: ActivatedRoute,
     public stepper:StepperService,
     private store : Store<fromRoot.State>,
-    private mapper: MapperService
+    private mapper: MapperService,
+    private fs: AngularFirestore
   ){ }
 
   ngOnInit(): void {
-    this.user = this.route.snapshot.data['user'];
+    /*this.fs.collection('users').snapshotChanges().subscribe(users =>{
+      console.log(users.map(x=>x.payload.doc.data()));
+    })*/
+
+    //this.user = this.route.snapshot.data['user'];
+    this.route.data.subscribe(({user})=>{
+      this.user = user;
+    })
+    console.log(this.user);
 
     this.isEditing =!!this.user;
 
@@ -59,6 +72,7 @@ export class FormComponent implements OnInit, OnDestroy{
     this.personal$ = this.store.pipe(select(fromForm.getPersonalForm)) as Observable<PersonalForm>;
     this.professional$ = this.store.pipe(select(fromForm.getProfessionalForm)) as Observable<ProfesionalForm>;
 
+    this.loading$ = this.store.pipe(select(fromUser.getLoading))as Observable<boolean>;
 
     if(this.user){
       const form = this.mapper.userToForm(this.user);
@@ -83,20 +97,23 @@ export class FormComponent implements OnInit, OnDestroy{
 
     });
     this.stepper.cancel$.pipe(takeUntil(this.destroy)).subscribe(()=>{
-      console.log('stepper cancelado')
+      this.router.navigate(['/profile', this.user.uid]);
+      //console.log('stepper cancelado')
     });
 
   }
-  onChangedPersonal(data: PersonalForm):void{
-    this.store.dispatch(new fromForm.Update({personal:data}))
-    //console.log('Personal data', data)
 
-  }
 
   ngOnDestroy(): void {
     this.destroy.next(null);
     this.destroy.complete();
+    //this.store.dispatch(new fromForm.Clear());
 
+  }
+
+  onChangedPersonal(data: PersonalForm):void{
+    this.store.dispatch(new fromForm.Update({personal:data}))
+    console.log('Personal data', data)
   }
 
   onChangedProfesional(data:ProfesionalForm){
@@ -106,19 +123,18 @@ export class FormComponent implements OnInit, OnDestroy{
 
   private onComplete(profile: ProfileForm, user: fromUser.User, dictionaries:fromDictionaries.Dictionaries): void{
     //create o update
-    if(this.isEditing){
+    if (this.isEditing) {
       const request = this.mapper.formToUserUpdate(profile, user, dictionaries);
       this.store.dispatch(new fromUser.Update(request));
-    }else{
+    } else {
       const request = this.mapper.formToUserCreate(profile, dictionaries);
       this.store.dispatch(new fromUser.Create(request));
     }
 
   }
 
-
-
-
-
+  get title():string{
+    return this.isEditing ? 'Editar Perfil de usuario' : 'Nuevo Perfil de Usuario';
+  }
 
 }

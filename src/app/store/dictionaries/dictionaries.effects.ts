@@ -28,7 +28,7 @@ const itemToControlItem = (x: Item): ControlItem => ({
 
 const addDictionary = (items: Item[]): Dictionary => ({
   items,
-  ControlItems: [...items].map(x => itemToControlItem(x))
+  ControlItems: [...items].map((x) => itemToControlItem(x))
 })
 
 @Injectable()
@@ -75,7 +75,7 @@ export class DictionariesEffects{
             };
             return new fromActions.ReadSucces(dictionaries);
           }),
-          catchError(err=> of(new fromActions.ReadError(err.messagge)))
+          catchError(err=> of(new fromActions.ReadError(err.message)))
         )
       })
     )

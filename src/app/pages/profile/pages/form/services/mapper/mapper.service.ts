@@ -4,20 +4,20 @@ import { EmployeeForm } from '../../components/professional/roles/employee/emplo
 import { RecrutierForm } from '../../components/professional/roles/recrutier/recrutier.component';
 import { User, UserCreateRequest, Employee, Recruiter } from '../../../../../../store/user';
 import { Dictionaries } from '../../../../../../store/dictionaries';
-import { ExperienceForm, Period } from '../../components/professional/roles/employee/experience/experience.component';
+
 
 
 @Injectable()
 
 export class MapperService {
 
-  constructor() { }
+  constructor() {}
 
   userToForm(user: User): ProfileForm{
     return{
       personal:{
         name:user ? user.name : null,
-        photoUrl: user? user.photoURL: null,
+        photoURL: user? user.photoURL: null,
         country: user? user.country : null
       },
       professional:{
@@ -29,17 +29,16 @@ export class MapperService {
     }
   }
 
-  private getFormRole(user:User): EmployeeForm | RecrutierForm | null{
+  /*private getFormRole(user:User): EmployeeForm | RecrutierForm | null{
     if(user.roleId === 'employee'){
       const role = user.role as Employee;
       const formRole : EmployeeForm ={
-        expecteadSalary : role.expectedSalary,
+        expectedSalary : role.expectedSalary,
         specialization :role.specialization? role.specialization.id : null,
-        qualificacion :role.qualification? role.qualification.id : null,
+        qualification :role.qualification? role.qualification.id : null,
         skills: role.skills.map((x:any)=> x.id),
         experiences : role.experiences
       }
-
       return formRole;
     }
 
@@ -50,16 +49,42 @@ export class MapperService {
         employeesCount : role.employeesCount,
         experiences: []
       }
-      return formRole
+      return formRole;
     }
 
+    return null;
+  }*/
+
+  private getFormRole(user: User) : EmployeeForm | RecrutierForm | null  {
+    if(user.roleId === 'employee'){
+      const role = user.role  as Employee;
+      const formRole : EmployeeForm = {
+        expectedSalary : role.expectedSalary,
+        specialization: role.specialization ?  role.specialization.id : null,
+        qualification: role.qualification ? role.qualification.id : null,
+        skills : role.skills.map((x:any) => x.id),
+        experiences : role.experiences
+      }
+
+      return formRole;
+    }
+
+    if(user.roleId==='recruiter'){
+      const role = user.role as Recruiter;
+      const formRole : RecrutierForm= {
+        companyName : role.companyName,
+        employeesCount: role.employeesCount,
+        experiences: []
+      }
+      return formRole;
+    }
     return null;
   }
 
   formToUserCreate(form:ProfileForm, dictionaries:Dictionaries): UserCreateRequest{
     return {
       name: form.personal?.name || null,
-      photoURL: form.personal?.photoUrl || null,
+      photoURL: form.personal?.photoURL || null,
       roleId: form.professional?.roleId,
       country: form.personal?.country || null,
       about: form.professional?.about,
@@ -68,45 +93,46 @@ export class MapperService {
     }
   }
 
-  private getRole(form: ProfileForm, dicitionaries: Dictionaries): Employee | Recruiter | null{
-    if(form && form.professional?.roleId ==='employee'){
+
+  private getRole(form: ProfileForm, dictionaries: Dictionaries) : Employee | Recruiter | null {
+    if(form && form.professional?.roleId === 'employee') {
       const formRole = form.professional.role as EmployeeForm;
-      const role : Employee = {
-        expectedSalary: formRole.expecteadSalary,
-        specialization : dicitionaries.specializations.items.find(x => x.id === formRole.specialization)|| null,
-        qualification : dicitionaries.specializations.items.find(x => x.id === formRole.qualificacion)||null,
-        skills:formRole.skills.map(id=> dicitionaries.skills.items.find(x=>x.id === id)),
-        experiences: form.professional.role.experiencesEmployee
+      const role: Employee = {
+        expectedSalary: formRole.expectedSalary,
+        specialization: dictionaries.specializations.items.find(x=>x.id===formRole.specialization) || null,
+        qualification: dictionaries.qualifications.items.find(x=>x.id===formRole.qualification) || null,
+        skills: formRole.skills.map(id => dictionaries.skills.items.find(x=> x.id === id)),
+        experiences: form.professional.role.experiences
       }
       return role;
     }
 
-    if(form.professional?.roleId==='recruiter'){
-      const formRole = form.professional.role as RecrutierForm;
-      const role: Recruiter = {
+    if(form && form.professional?.roleId==='recruiter') {
+      const formRole = form.professional.role as RecrutierForm
+      const role : Recruiter = {
         companyName : formRole.companyName,
-        employeesCount : formRole.employeesCount
-        
+        employeesCount: formRole.employeesCount
       }
       return role;
-
     }
+
     return null;
   }
 
-  formToUserUpdate(form:ProfileForm, user:User, dictionaries:Dictionaries): User{
+  formToUserUpdate(form: ProfileForm, user: User, dictionaries: Dictionaries): User {
     return {
       uid: user.uid,
       email: user.email,
       created: user.created,
-      name: form.personal?.name||null,
-      photoURL: form.personal?.photoUrl ||null,
+      name: form.personal?.name || null,
+      photoURL: form.personal?.photoURL || null,
       roleId: form.professional?.roleId,
-      country: form.personal?.country ||null,
+      country: form.personal?.country || null,
       about: form.professional?.about,
-      role: this.getRole(form,dictionaries)
-    }
+      role: this.getRole(form, dictionaries)
+    };
   }
+
 
 
 }

@@ -6,4 +6,4 @@ export interface EmailPasswordCredentials{
   password:string;
 }
 
-export type UserCreateRequest = Omit<User, 'uid'|'email'|'created'>
+export type UserCreateRequest = Omit<User, 'uid' | 'email' | 'created'>;

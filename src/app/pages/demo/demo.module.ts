@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { DemoRoutingModule } from './demo-routing.module';
 import { DemoComponent } from './demo.component';
+import { provideClientHydration } from '@angular/platform-browser';
 
 
 @NgModule({
@@ -12,6 +13,9 @@ import { DemoComponent } from './demo.component';
   imports: [
     CommonModule,
     DemoRoutingModule
+  ],
+  providers:[
+    provideClientHydration()
   ]
 })
 export class DemoModule { }

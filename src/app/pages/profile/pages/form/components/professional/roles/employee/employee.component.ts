@@ -6,13 +6,12 @@ import { RecrutierForm } from '../recrutier/recrutier.component';
 import { ExperienceForm } from './experience/experience.component';
 
 import { ControlEntities, mapControls } from '../../../../../../../../shared/utils/form';
-import { MapperService } from '../../../../services/mapper/mapper.service';
 
 export interface EmployeeForm{
   specialization:string |null;
   skills: string[];
-  qualificacion:string | null;
-  expecteadSalary:number;
+  qualification:string | null;
+  expectedSalary:number;
   experiences: ExperienceForm[];
 }
 
@@ -38,7 +37,7 @@ export class EmployeeComponent implements OnInit, OnDestroy{
 
   constructor(
     private fb: FormBuilder,
-    private mapperService: MapperService
+
 
   ){
 

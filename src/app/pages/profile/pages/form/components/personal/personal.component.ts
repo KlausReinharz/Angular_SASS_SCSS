@@ -8,7 +8,7 @@ import { markFormGroupTouched } from '../../../../../../shared';
 
 export interface PersonalForm{
   name: string | null;
-  photoUrl: string | null;
+  photoURL: string | null;
   country: string | null;
 }
 

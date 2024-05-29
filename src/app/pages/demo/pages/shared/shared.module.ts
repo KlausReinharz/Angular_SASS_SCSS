@@ -5,6 +5,7 @@ import { SharedRoutingModule } from './shared-routing.module';
 import { SharedComponent } from './shared.component';
 import { ButtonsModule,ControlsModule, IndicatorsModule, PopupsModule } from '../../../../shared';
 import { ReactiveFormsModule } from '@angular/forms';
+import { provideClientHydration } from '@angular/platform-browser';
 
 
 @NgModule({
@@ -19,6 +20,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     IndicatorsModule,
     PopupsModule
+  ],
+  providers:[
+    provideClientHydration()
   ]
 })
 export class SharedModule { }

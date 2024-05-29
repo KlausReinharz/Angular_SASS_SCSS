@@ -1,4 +1,4 @@
-import {ActionReducerMap} from '@ngrx/store';
+import {ActionReducerMap, createFeatureSelector} from '@ngrx/store';
 import * as fromDictionaries from './dictionaries';
 
 import * as fromUser from './user';
@@ -10,10 +10,13 @@ export interface State{
 };
 export const reducers:ActionReducerMap<State>={
   dictionaries: fromDictionaries.reducer,
-  user: fromUser.reudcer
+  user: fromUser.reducer
 
 };
 export const effects=[
   fromDictionaries.DictionariesEffects,
   fromUser.UserEffects
 ];
+
+
+

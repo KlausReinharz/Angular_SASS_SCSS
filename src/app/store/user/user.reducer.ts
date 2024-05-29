@@ -15,7 +15,7 @@ const initialState: UserState ={
   error: null
 }
 
-export function reudcer (state = initialState, action: fromActions.All | any): UserState{
+export function reducer (state = initialState, action: fromActions.All | any): UserState{
   switch(action.type){
     //Init
     case fromActions.Types.INIT:{
@@ -98,12 +98,9 @@ export function reudcer (state = initialState, action: fromActions.All | any): U
       return {...state, loading: false, error:action.error}
     }
 
+    default:
+      return state
 
-    default:{
-      return state;
-    }
 
   }
 }
-
-

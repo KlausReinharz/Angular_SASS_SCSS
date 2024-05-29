@@ -6,7 +6,7 @@ import { ProfileRoutingModule } from './profile-routing.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { reducers, effects } from './store';
-import { UserResolver } from './resolvers';
+
 
 
 @NgModule({
@@ -19,7 +19,7 @@ import { UserResolver } from './resolvers';
     ProfileRoutingModule
   ],
   providers:[
-    UserResolver
+
   ]
 })
 export class ProfileModule { }

@@ -11,7 +11,7 @@ import { EmployeeForm } from './roles/employee/employee.component';
 export interface ProfesionalForm{
   about?: string | null;
   roleId?: string | null;
-  role?: RecrutierForm | EmployeeForm |null|any;
+  role?: RecrutierForm | EmployeeForm |any;
 }
 
 @Component({

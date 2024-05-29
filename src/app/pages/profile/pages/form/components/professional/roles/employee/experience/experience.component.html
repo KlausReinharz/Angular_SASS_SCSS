@@ -1,16 +1,17 @@
 <form [formGroup]="parent" class="experiences">
   <div [formArrayName]="name" *ngIf="parent.controls[name]">
-    <div class="experience" *ngFor="let experience of getControls(); let i=index; let first=first">
+    <div class="experience" *ngFor="let experiences of getControls(); let i=index; let first=first">
 
       <div [formGroupName]="i">
-        <app-form-field label="Empresa" [required]="true" [control]="getControl(experience, 'companyName')">
+        <app-form-field label="Empresa" [required]="true" [control]="getControl(experiences, 'companyName')">
           <app-input formControlName="companyName"></app-input>
         </app-form-field>
 
 
-        <app-form-field label="Periodo Laboral" [required]="true" [control]="getControl(experience, 'period')">
-          <app-date-range formControlName="period"></app-date-range>
+        <app-form-field label="Periodo Laboral" [required]="true" [control]="getControl(experiences, 'period')">
+          <app-date-range formArraylName="period"></app-date-range>
       </app-form-field>
+
 
       </div>
 
@@ -27,4 +28,6 @@
   </div>
 
 </form>
+
+
 

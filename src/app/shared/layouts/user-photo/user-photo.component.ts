@@ -8,7 +8,7 @@ import { SafeStyle, DomSanitizer } from '@angular/platform-browser';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserPhotoComponent {
-  @Input() photoURL!: string;
+  @Input() photoURL!: string ;
 
   constructor(
     private sanitizer: DomSanitizer

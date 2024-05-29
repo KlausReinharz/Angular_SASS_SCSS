@@ -10,8 +10,11 @@
     <a class="app-a" routerLink="demo" routerLinkActive="app-a_active">Demo</a>
 
     <div *ngIf="isAuthotizrd">
-      <a class="app-a" routerLink="profile/new">Perfil</a>
+      <a class="app-a" routerLink="jobs">Trabajos</a>
+      <a class="app-a" (click)="OnProfileNavigate()">Perfil</a>
+      <a class="app-a" routerLink="employee">Empleados</a>
       <a class="app-a" (click)="onSignOut()">Cerrar Sesion</a>
+
 
     </div>
   </div>

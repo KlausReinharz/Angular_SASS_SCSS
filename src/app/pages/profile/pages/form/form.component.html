@@ -1,6 +1,6 @@
 <div class="app-page">
   <div class="app-page__haeder">
-    <h1>Perfil de Usuario</h1>
+    <h1>{{title}}</h1>
   </div>
 
   <div class="app-page__content">
@@ -24,4 +24,6 @@
       </ng-container>
     </app-stepper>
   </div>
+
+  <app-spinner *ngIf="loading$ | async"></app-spinner>
 </div>

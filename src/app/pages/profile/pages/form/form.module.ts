@@ -20,6 +20,7 @@ import { ExperienceComponent } from './components/professional/roles/employee/ex
 import { ButtonModule } from "../../../../shared/buttons";
 import { MapperService } from './services';
 
+
 @NgModule({
     declarations: [
         FormComponent,
@@ -47,7 +48,8 @@ import { MapperService } from './services';
         ButtonModule
     ],
     providers:[
-      MapperService
+      MapperService,
+
     ]
 })
 export class FormModule { }

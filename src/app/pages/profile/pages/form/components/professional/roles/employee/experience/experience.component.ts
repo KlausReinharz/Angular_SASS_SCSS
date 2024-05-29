@@ -1,14 +1,13 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { EmployeeForm } from '../employee.component';
 
 export interface ExperienceForm{
   companyName: string;
   period: Period;
 }
 export interface Period{
-  from: number;
-  to: number;
+  from: number|null;
+  to: number|null;
 }
 
 @Component({
@@ -19,13 +18,11 @@ export interface Period{
 
 
 export class ExperienceComponent implements OnInit, OnDestroy{
-  @Input() public parent!: FormGroup;
+  @Input() public parent: FormGroup;
   @Input() public name:string;
+  @Input() public values: ExperienceForm[];
 
-  @Input() public values!: ExperienceForm[];
-
-
-  form!: FormArray;
+  form: FormArray;
 
   constructor(
     private fb: FormBuilder
@@ -63,13 +60,17 @@ export class ExperienceComponent implements OnInit, OnDestroy{
           Validators.required
         ]
       }],
-      period:[null,{
+      /*period:[null,{
         updateOn:'change',validators:[
           Validators.required
         ]
-      }
-      ]
+      }]*/
+      period: this.fb.group({
+        from: [1265605200000, Validators.required], // Valor inicial para 'from'
+        to: [1422939600000, Validators.required]   // Valor inicial para 'to'
+      })
     });
+
 
     if(value){
       group.patchValue(value);
@@ -92,4 +93,5 @@ export class ExperienceComponent implements OnInit, OnDestroy{
   getControl(control:any,name:string){
     return control.get('controls')?.get(name) as FormControl;
   }
+
 }
